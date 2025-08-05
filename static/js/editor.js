@@ -20,7 +20,7 @@ class CodeEditor {
 </head>
 <body>
     <h1>Hello, World!</h1>
-    <p>Welcome to your web development project!</p>
+    <p>Welcome to your web development project! This is just a sample code remove the code and start your coding...!</p>
 </body>
 </html>`,
             css: `/* CSS Styles */

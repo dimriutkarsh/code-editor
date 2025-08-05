@@ -5,7 +5,7 @@ import json
 app = Flask(__name__)
 
 # Hardcoded Gemini API key
-GEMINI_API_KEY = "AIzaSyAyGU_zjaL44gIuFFdEXEjlMtzgrOpdCAY"
+GEMINI_API_KEY = "AIzaSyAAzfnEB8dV1cv10kx0iKcFpmnqcPrD3eM"
 GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent"
 
 # Language configurations
@@ -55,6 +55,10 @@ LANGUAGE_CONFIGS = {
 }
 
 @app.route('/')
+def landing():
+    return render_template('landing.html')
+
+@app.route('/index')
 def index():
     return render_template('index.html', languages=LANGUAGE_CONFIGS)
 
