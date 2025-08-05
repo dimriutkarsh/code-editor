@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeStudio Pro</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg">
+        <div class="bg-animation">
+            <div class="floating-shapes">
+                <div class="shape shape-1"></div>
+                <div class="shape shape-2"></div>
+                <div class="shape shape-3"></div>
+                <div class="shape shape-4"></div>
+                <div class="shape shape-5"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Welcome Screen -->
+    <div id="welcome-screen" class="welcome-screen">
+        <div class="welcome-container">
+            <div class="welcome-header">
+                <div class="logo">
+                    <i class="fas fa-code"></i>
+                    <h1>CodeStudio Pro</h1>
+                </div>
+                <p>Your professional coding workspace with AI-powered code execution</p>
+            </div>
+            <form id="welcome-form" class="welcome-form">
+                <div class="form-row">
+                    <div class="input-group">
+                        <label for="username">
+                            <i class="fas fa-user"></i>
+                            Developer Name
+                        </label>
+                        <input type="text" id="username" placeholder="Enter your name" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="projectname">
+                            <i class="fas fa-folder"></i>
+                            Project Name
+                        </label>
+                        <input type="text" id="projectname" placeholder="Enter project name" required>
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="language-select">
+                        <i class="fas fa-code"></i>
+                        Select Development Mode
+                    </label>
+                    <div class="mode-grid">
+                        <div class="mode-option" data-mode="web">
+                            <span class="mode-icon">🌐</span>
+                            <span class="mode-name">Web Development</span>
+                            <span class="mode-desc">HTML, CSS, JavaScript</span>
+                        </div>
+                        <div class="mode-option" data-mode="programming">
+                            <span class="mode-icon">💻</span>
+                            <span class="mode-name">Programming</span>
+                            <span class="mode-desc">Python, Java, C, C++</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="language-selection" class="input-group hidden">
+                    <label for="programming-language">
+                        <i class="fas fa-terminal"></i>
+                        Select Programming Language
+                    </label>
+                    <div class="language-grid">
+                        <div class="language-option" data-lang="python">
+                            <span class="lang-icon">🐍</span>
+                            <span class="lang-name">Python</span>
+                        </div>
+                        <div class="language-option" data-lang="java">
+                            <span class="lang-icon">☕</span>
+                            <span class="lang-name">Java</span>
+                        </div>
+                        <div class="language-option" data-lang="c">
+                            <span class="lang-icon">⚙️</span>
+                            <span class="lang-name">C</span>
+                        </div>
+                        <div class="language-option" data-lang="cpp">
+                            <span class="lang-icon">⚡</span>
+                            <span class="lang-name">C++</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <button type="submit" class="start-btn">
+                    <i class="fas fa-rocket"></i>
+                    Launch CodeStudio
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main Editor -->
+    <div id="editor-screen" class="editor-screen hidden">
+        <header class="editor-header">
+            <div class="header-left">
+                <div class="logo-small">
+                    <i class="fas fa-code"></i>
+                    <span id="workbench-title">CodeStudio Pro</span>
+                </div>
+                <div class="project-info">
+                    <span id="project-name" class="project-name"></span>
+                    <span id="current-language-badge" class="language-badge"></span>
+                </div>
+            </div>
+            <div class="header-right">
+                <button id="ai-suggest-btn" class="header-btn ai-btn" title="AI Code Suggestions">
+                    <i class="fas fa-magic"></i>
+                    AI Assist
+                </button>
+                <button id="toggle-output-btn" class="header-btn" title="Toggle Output">
+                    <i class="fas fa-eye"></i>
+                    Output
+                </button>
+                <button id="new-window-btn" class="header-btn" title="Open in New Window">
+                    <i class="fas fa-external-link-alt"></i>
+                    New Window
+                </button>
+                <button id="run-btn" class="header-btn run-btn" title="Run Code">
+                    <i class="fas fa-play"></i>
+                    Run
+                </button>
+            </div>
+        </header>
+
+        <div class="editor-container">
+            <!-- Web Development Mode -->
+            <div id="web-editor" class="web-editor hidden">
+                <div class="web-tabs">
+                    <button class="web-tab active" data-lang="html">
+                        <span class="tab-icon">🌐</span>
+                        HTML
+                    </button>
+                    <button class="web-tab" data-lang="css">
+                        <span class="tab-icon">🎨</span>
+                        CSS
+                    </button>
+                    <button class="web-tab" data-lang="javascript">
+                        <span class="tab-icon">⚡</span>
+                        JavaScript
+                    </button>
+                </div>
+                <div class="web-editor-content">
+                    <div class="web-editor-panel">
+                        <div class="editor-header-bar">
+                            <span id="web-current-language">HTML</span>
+                            <div class="editor-controls">
+                                <button id="web-clear-btn" class="control-btn" title="Clear Code">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                                <button id="web-copy-btn" class="control-btn" title="Copy Code">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                                <button id="web-download-btn" class="control-btn" title="Download File">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="code-editor">
+                            <div class="line-numbers" id="web-line-numbers">1</div>
+                            <textarea id="web-code-input" spellcheck="false" placeholder="Start coding..."></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Programming Mode -->
+            <div id="programming-editor" class="editor-sidebar hidden">
+                <div class="editor-panel">
+                    <div class="editor-header-bar">
+                        <span id="current-language-title">Code Editor</span>
+                        <div class="editor-controls">
+                            <button id="clear-btn" class="control-btn" title="Clear Code">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                            <button id="copy-btn" class="control-btn" title="Copy Code">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                            <button id="download-btn" class="control-btn" title="Download File">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="code-editor">
+                        <div class="line-numbers" id="line-numbers">1</div>
+                        <textarea id="code-input" spellcheck="false" placeholder="Start coding..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="output-panel" id="output-panel">
+                <div class="output-header">
+                    <div class="output-title">
+                        <i class="fas fa-terminal"></i>
+                        Output
+                    </div>
+                    <div class="output-controls">
+                        <button id="clear-output-btn" class="control-btn" title="Clear Output">
+                            <i class="fas fa-broom"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="output-content">
+                    <div id="output-display" class="output-terminal">
+                        <div class="terminal-prompt">Ready to run your code...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- AI Suggestion Modal -->
+    <div id="ai-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-magic"></i> AI Code Assistant</h3>
+                <button id="close-modal" class="close-btn">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="input-group">
+                    <label for="ai-prompt">What would you like help with?</label>
+                    <textarea id="ai-prompt" placeholder="e.g., 'Add error handling', 'Optimize this function', 'Add comments'"></textarea>
+                </div>
+                <div class="modal-actions">
+                    <button id="get-suggestion" class="ai-btn">
+                        <i class="fas fa-magic"></i>
+                        Get Suggestion
+                    </button>
+                </div>
+                <div id="ai-response" class="ai-response hidden">
+                    <label>AI Suggestion:</label>
+                    <pre id="ai-suggestion"></pre>
+                    <div class="suggestion-actions">
+                        <button id="apply-suggestion" class="apply-btn">
+                            <i class="fas fa-check"></i>
+                            Apply Suggestion
+                        </button>
+                        <button id="copy-suggestion" class="copy-btn">
+                            <i class="fas fa-copy"></i>
+                            Copy
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div id="loading" class="loading hidden">
+        <div class="spinner">
+            <div class="bounce1"></div>
+            <div class="bounce2"></div>
+            <div class="bounce3"></div>
+        </div>
+        <p>Processing...</p>
+    </div>
+
+    <!-- Load JavaScript modules -->
+    <script src="{{ url_for('static', filename='js/welcome.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/editor.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/output.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/ai.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
