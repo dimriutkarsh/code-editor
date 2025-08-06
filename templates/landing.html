@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CodeEditor - Build, Test, and Create</title>
+    <title>CodeStudio Pro - Build, Test, and Create</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/landing.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
     <div class="container">
@@ -13,21 +14,16 @@
         <header class="header">
             <div class="logo">
                 <div class="logo-icon">
-                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                        <path d="M8 8L24 8L24 24L8 24Z" stroke="currentColor" stroke-width="2" fill="none"/>
-                        <path d="M12 12L20 12" stroke="currentColor" stroke-width="2"/>
-                        <path d="M12 16L18 16" stroke="currentColor" stroke-width="2"/>
-                        <path d="M12 20L16 20" stroke="currentColor" stroke-width="2"/>
-                    </svg>
+                    <i class="fas fa-code"></i>
                 </div>
-                <span class="logo-text">CODE-EDITOR</span>
+                <span class="logo-text">CodeStudio Pro</span>
             </div>
             <nav class="nav">
                 <div class="search-container">
                     <input type="text" placeholder="Search projects..." class="search-input">
-                    <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none">
-                        <path d="M21 21L16.514 16.506L21 21ZM19 10.5C19 15.194 15.194 19 10.5 19C5.806 19 2 15.194 2 10.5C2 5.806 5.806 2 10.5 2C15.194 2 19 5.806 19 10.5Z" stroke="currentColor" stroke-width="2"/>
-                    </svg>
+                    <i class="fas fa-search search-icon"></i>
+                </div>
+                <div class="nav-buttons">
                 </div>
             </nav>
         </header>
@@ -38,9 +34,9 @@
             <aside class="sidebar">
                 <nav class="sidebar-nav">
                     <button class="sidebar-btn active" id="startCodingBtn">
+                        <i class="fas fa-rocket"></i>
                         <span class="sidebar-btn-text">Start Coding</span>
                     </button>
-                
                 </nav>
             </aside>
 
@@ -50,21 +46,31 @@
                     <div class="hero-text">
                         <h1 class="hero-title">
                             <span class="title-icon">
-                                <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
-                                    <path d="M16 16L48 16L48 48L16 48Z" stroke="currentColor" stroke-width="3" fill="none"/>
-                                    <path d="M24 24L40 24" stroke="currentColor" stroke-width="2"/>
-                                    <path d="M24 32L36 32" stroke="currentColor" stroke-width="2"/>
-                                    <path d="M24 40L32 40" stroke="currentColor" stroke-width="2"/>
-                                </svg>
+                                <i class="fas fa-terminal"></i>
                             </span>
-                            The best place to build, test, and discover front-end code.
+                            The best place to build, test, and discover code with AI.
                         </h1>
                         <p class="hero-description">
-                            CodeEditor is a <strong>powerful development environment</strong> for front-end designers 
-                            and developers. Build and deploy websites, showcase your work, create 
-                            test cases to learn and debug, and find inspiration.
+                            CodeStudio Pro is a <strong>powerful development environment</strong> for front-end and back-end developers. 
+                            Build and deploy websites, showcase your work, create test cases to learn and debug, 
+                            and find inspiration with <strong>AI-powered assistance</strong> and <strong>interactive input handling</strong>.
                         </p>
-                        <button class="btn btn-cta" id="signUpBtn">
+                        <div class="hero-features">
+                            <div class="feature-tag">
+                                <i class="fas fa-keyboard"></i>
+                                Interactive Input
+                            </div>
+                            <div class="feature-tag">
+                                <i class="fas fa-robot"></i>
+                                AI Assistance
+                            </div>
+                            <div class="feature-tag">
+                                <i class="fas fa-play"></i>
+                                Live Execution
+                            </div>
+                        </div>
+                        <button class="btn btn-cta" id="signUpBtn2">
+                            <i class="fas fa-rocket"></i>
                             Start Coding for Free
                         </button>
                     </div>
@@ -73,84 +79,51 @@
                 <!-- Code Preview -->
                 <div class="code-preview">
                     <div class="editor-tabs">
-                        <div class="tab active">
-                            <span class="tab-icon">HTML</span>
+                        <div class="tab active" data-lang="python">
+                            <i class="fab fa-python"></i>
+                            <span class="tab-text">Python</span>
                         </div>
-                        <div class="tab">
-                            <span class="tab-icon">CSS</span>
+                        <div class="tab" data-lang="javascript">
+                            <i class="fab fa-js-square"></i>
+                            <span class="tab-text">JavaScript</span>
                         </div>
-                        <div class="tab">
-                            <span class="tab-icon">JS</span>
+                        <div class="tab" data-lang="html">
+                            <i class="fab fa-html5"></i>
+                            <span class="tab-text">HTML</span>
                         </div>
                     </div>
-                    <div class="code-content">
+                    <div class="code-content" id="codeContent">
                         <div class="code-line">
                             <span class="line-number">1</span>
                             <span class="code-text">
-                                <span class="tag">&lt;div</span> 
-                                <span class="attr">class</span>=<span class="string">"container"</span><span class="tag">&gt;</span>
+                                <span class="comment"># Interactive Python Code</span>
                             </span>
                         </div>
                         <div class="code-line">
                             <span class="line-number">2</span>
                             <span class="code-text">
-                                &nbsp;&nbsp;<span class="tag">&lt;h1&gt;</span><span class="text">Hello World!</span><span class="tag">&lt;/h1&gt;</span>
+                                <span class="variable">name</span> = <span class="function">input</span>(<span class="string">"Enter your name: "</span>)
                             </span>
                         </div>
                         <div class="code-line">
                             <span class="line-number">3</span>
                             <span class="code-text">
-                                <span class="tag">&lt;/div&gt;</span>
+                                <span class="function">print</span>(<span class="string">f"Hello, {name}!"</span>)
                             </span>
+                        </div>
+                    </div>
+                    <div class="code-output">
+                        <div class="output-line">
+                            <span class="output-prompt">></span>
+                            <span class="output-text">Enter your name: <span class="user-input-demo">Utkarsh</span></span>
+                        </div>
+                        <div class="output-line">
+                            <span class="output-text">Hello, Utkarsh!</span>
                         </div>
                     </div>
                 </div>
             </section>
         </main>
-
-        <!-- Features Section -->
-        <section class="features">
-            <div class="feature-cards">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
-                            <path d="M9 12L11 14L15 10M21 12C21 16.971 16.971 21 12 21C7.029 21 3 16.971 3 12C3 7.029 7.029 3 12 3C16.971 3 21 7.029 21 12Z" stroke="currentColor" stroke-width="2"/>
-                        </svg>
-                    </div>
-                    <h3>Build & Test</h3>
-                    <p>Create and test your code in real-time with our powerful editor</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
-                            <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" stroke="currentColor" stroke-width="2"/>
-                        </svg>
-                    </div>
-                    <h3>Fast & Reliable</h3>
-                    <p>Lightning-fast performance with reliable cloud infrastructure</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
-                            <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2"/>
-                            <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2"/>
-                            <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2"/>
-                        </svg>
-                    </div>
-                    <h3>Share & Collaborate</h3>
-                    <p>Share your projects and collaborate with developers worldwide</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Animated Background Elements -->
-        <div class="floating-elements">
-            <div class="floating-element" style="--delay: 0s; --duration: 8s;"></div>
-            <div class="floating-element" style="--delay: 2s; --duration: 10s;"></div>
-            <div class="floating-element" style="--delay: 4s; --duration: 12s;"></div>
-            <div class="floating-element" style="--delay: 6s; --duration: 14s;"></div>
-        </div>
-    </div>
 
     <script src="{{ url_for('static', filename='js/landing.js') }}"></script>
 </body>

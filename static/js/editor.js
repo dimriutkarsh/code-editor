@@ -63,9 +63,9 @@ document.addEventListener("DOMContentLoaded", function() {
         this.templates = {
             'python': '# Python Code\nprint("Hello, World!")\n\n# Your code here\n',
             'javascript': '// JavaScript Code\nconsole.log("Hello, World!");\n\n// Your code here\n',
-            'java': 'public class Main {\n    public static void main(String[] args) {\n        System.out.println("Hello, World!");\n    }\n}',
-            'c': '#include <stdio.h>\n\nint main() {\n    printf("Hello, World!\\n");\n    return 0;\n}',
-            'cpp': '#include <iostream>\n\nint main() {\n    std::cout << "Hello, World!" << std::endl;\n    return 0;\n}'
+            'java': 'import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        System.out.println("Hello, World!");\n        \n        // Example with user input:\n        // Scanner scanner = new Scanner(System.in);\n        // System.out.print("Enter your name: ");\n        // String name = scanner.nextLine();\n        // System.out.println("Hello, " + name + "!");\n    }\n}',
+            'c': '#include <stdio.h>\n\nint main() {\n    printf("Hello, World!\\n");\n    \n    // Example with user input:\n    // char name[50];\n    // printf("Enter your name: ");\n    // scanf("%s", name);\n    // printf("Hello, %s!\\n", name);\n    \n    return 0;\n}',
+            'cpp': '#include <iostream>\n#include <string>\n\nint main() {\n    std::cout << "Hello, World!" << std::endl;\n    \n    // Example with user input:\n    // std::string name;\n    // std::cout << "Enter your name: ";\n    // std::cin >> name;\n    // std::cout << "Hello, " << name << "!" << std::endl;\n    \n    return 0;\n}'
         };
     }
 
@@ -319,6 +319,12 @@ document.addEventListener("DOMContentLoaded", function() {
             return;
         }
 
+        // Check if we're already in input mode
+        if (window.CodeStudioApp.inputHandler.isInInputMode()) {
+            window.CodeStudioApp.outputManager.addToOutput('Please finish providing inputs first.', 'error');
+            return;
+        }
+
         window.CodeStudioApp.outputManager.showLoading();
         window.CodeStudioApp.outputManager.addToOutput(`Running ${window.CodeStudioApp.currentLanguage} code...`, 'output');
 
@@ -329,13 +335,18 @@ document.addEventListener("DOMContentLoaded", function() {
             },
             body: JSON.stringify({
                 code: this.code,
-                language: window.CodeStudioApp.currentLanguage
+                language: window.CodeStudioApp.currentLanguage,
+                inputs: []
             })
         })
         .then(response => response.json())
         .then(data => {
             window.CodeStudioApp.outputManager.hideLoading();
-            if (data.error) {
+            
+            if (data.needs_input) {
+                // Code requires input - show input interface
+                window.CodeStudioApp.inputHandler.showInputInterface(data.message);
+            } else if (data.error) {
                 window.CodeStudioApp.outputManager.addToOutput('Error:', 'error');
                 window.CodeStudioApp.outputManager.addToOutput(data.error, 'error');
             } else {
@@ -467,6 +478,9 @@ document.addEventListener("DOMContentLoaded", function() {
         } else {
             outputDisplay.innerHTML = '<div class="terminal-prompt">Output cleared...</div>';
         }
+        
+        // Also hide input interface if visible
+        window.CodeStudioApp.inputHandler.hideInputInterface();
     }
 
     openInNewWindow() {

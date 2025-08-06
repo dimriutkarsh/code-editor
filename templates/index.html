@@ -32,7 +32,7 @@
                     <i class="fas fa-code"></i>
                     <h1>CodeStudio Pro</h1>
                 </div>
-                <p>Your professional coding workspace with AI-powered code execution</p>
+                <p>Your professional coding workspace with AI-powered code execution and interactive input handling</p>
             </div>
             <form id="welcome-form" class="welcome-form">
                 <div class="form-row">
@@ -202,7 +202,7 @@
                 <div class="output-header">
                     <div class="output-title">
                         <i class="fas fa-terminal"></i>
-                        Output
+                        <span id="output-title-text">Output</span>
                     </div>
                     <div class="output-controls">
                         <button id="clear-output-btn" class="control-btn" title="Clear Output">
@@ -213,6 +213,26 @@
                 <div class="output-content">
                     <div id="output-display" class="output-terminal">
                         <div class="terminal-prompt">Ready to run your code...</div>
+                    </div>
+                    <!-- Interactive Input Interface -->
+                    <div id="input-interface" class="input-interface hidden">
+                        <div class="input-prompt">
+                            <span id="input-prompt-text">Enter input:</span>
+                        </div>
+                        <div class="input-controls">
+                            <input type="text" id="user-input" class="user-input" placeholder="Type your input here..." />
+                            <button id="submit-input" class="submit-input-btn">
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                            <button id="finish-input" class="finish-input-btn">
+                                <i class="fas fa-check"></i>
+                                Run Code
+                            </button>
+                        </div>
+                        <div class="input-list">
+                            <div class="input-list-header">Inputs provided:</div>
+                            <div id="input-display" class="input-display"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -272,6 +292,7 @@
     <script src="{{ url_for('static', filename='js/editor.js') }}"></script>
     <script src="{{ url_for('static', filename='js/output.js') }}"></script>
     <script src="{{ url_for('static', filename='js/ai.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/input-handler.js') }}"></script>
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html>
