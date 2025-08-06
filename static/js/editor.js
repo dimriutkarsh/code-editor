@@ -204,23 +204,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 this.updateWebPreview();
             }
         });
-
-        // Handle tab key
-        webCodeInput.addEventListener('keydown', (e) => {
-            if (e.key === 'Tab') {
-                e.preventDefault();
-                const start = webCodeInput.selectionStart;
-                const end = webCodeInput.selectionEnd;
-                webCodeInput.value = webCodeInput.value.substring(0, start) + '    ' + webCodeInput.value.substring(end);
-                webCodeInput.selectionStart = webCodeInput.selectionEnd = start + 4;
-                this.webCodes[this.currentWebLanguage] = webCodeInput.value;
-                this.updateWebLineNumbers();
-                
-                if (this.livePreviewEnabled) {
-                    this.updateWebPreview();
-                }
-            }
-        });
     }
 
     setupEventListeners() {

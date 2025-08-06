@@ -30,14 +30,6 @@ document.addEventListener('DOMContentLoaded', () => {
 // Global keyboard shortcuts
 function setupKeyboardShortcuts() {
     document.addEventListener('keydown', (e) => {
-        // Ctrl/Cmd + Enter to run code
-        if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
-            e.preventDefault();
-            const runBtn = document.getElementById('run-btn');
-            if (runBtn && !runBtn.disabled && !runBtn.classList.contains('hidden')) {
-                runBtn.click();
-            }
-        }
         
         // Ctrl/Cmd + S to save (download)
         if ((e.ctrlKey || e.metaKey) && e.key === 's') {
@@ -48,26 +40,6 @@ function setupKeyboardShortcuts() {
             }
         }
         
-        // Escape to close modal or input interface
-        if (e.key === 'Escape') {
-            const modal = document.getElementById('ai-modal');
-            if (modal && !modal.classList.contains('hidden')) {
-                window.CodeStudioApp.aiAssistant.hideModal();
-            } else if (window.CodeStudioApp.inputHandler.isInInputMode()) {
-                window.CodeStudioApp.inputHandler.hideInputInterface();
-            }
-        }
-        
-        // Ctrl/Cmd + I to toggle input interface (when in programming mode)
-        if ((e.ctrlKey || e.metaKey) && e.key === 'i' && window.CodeStudioApp.currentMode === 'programming') {
-            e.preventDefault();
-            if (window.CodeStudioApp.inputHandler.isInInputMode()) {
-                window.CodeStudioApp.inputHandler.hideInputInterface();
-            } else {
-                window.CodeStudioApp.inputHandler.showInputInterface('Manual input mode activated');
-            }
-        }
-        
         // Enter to submit input when in input mode
         if (e.key === 'Enter' && window.CodeStudioApp.inputHandler.isInInputMode()) {
             const userInput = document.getElementById('user-input');
@@ -75,12 +47,6 @@ function setupKeyboardShortcuts() {
                 e.preventDefault();
                 window.CodeStudioApp.inputHandler.addInput();
             }
-        }
-        
-        // Ctrl/Cmd + Shift + Enter to finish input and run code
-        if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'Enter' && window.CodeStudioApp.inputHandler.isInInputMode()) {
-            e.preventDefault();
-            window.CodeStudioApp.inputHandler.finishInput();
         }
     });
 }
@@ -113,8 +79,6 @@ function setupEnhancedInteractions() {
         });
     });
     
-    // Add contextual help system
-    setupContextualHelp();
     
     // Add auto-save functionality
     setupAutoSave();
@@ -123,31 +87,6 @@ function setupEnhancedInteractions() {
     setupErrorHandling();
 }
 
-// Contextual help system
-function setupContextualHelp() {
-    const helpTips = {
-        'code-input': 'Press Ctrl+Enter to run your code. Use Ctrl+I to add inputs for interactive programs.',
-        'web-code-input': 'Your changes are automatically previewed in real-time.',
-        'user-input': 'Press Enter to add input, or Ctrl+Shift+Enter to run with all inputs.',
-        'run-btn': 'Run your code. If your program needs input, you\'ll be prompted to provide it.',
-    };
-    
-    Object.entries(helpTips).forEach(([id, tip]) => {
-        const element = document.getElementById(id);
-        if (element) {
-            element.title = tip;
-            
-            // Add focus hint
-            element.addEventListener('focus', () => {
-                showTooltip(element, tip);
-            });
-            
-            element.addEventListener('blur', () => {
-                hideTooltip();
-            });
-        }
-    });
-}
 
 // Tooltip system
 let currentTooltip = null;
