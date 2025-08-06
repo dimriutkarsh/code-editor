@@ -255,7 +255,7 @@ function initializeTypewriter() {
     const titleElement = document.querySelector('.hero-title');
     if (!titleElement) return;
     
-    const originalText = 'The best place to build, test, and discover code with AI.';
+    const originalText = 'The best place to build, test, and discover code.';
     const iconElement = titleElement.querySelector('.title-icon');
     
     // Store the icon HTML

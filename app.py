@@ -6,10 +6,10 @@ import re
 app = Flask(__name__)
 
 # Hardcoded Gemini API key
-GEMINI_API_KEY = "AIzaSyAAzfnEB8dV1cv10kx0iKcFpmnqcPrD3eM"
+GEMINI_API_KEY = "AIzaSyDVt0NFIzTiVe2ZFKbGjAXXafPP_ETYU7U"
 GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent"
 
-# Language configurations
+
 LANGUAGE_CONFIGS = {
     'python': {
         'name': 'Python',
